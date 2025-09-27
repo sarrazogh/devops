@@ -21,14 +21,14 @@ public class ConfigAOP {
         log.info("In method " + name + " : ");
     }
 
-    @Around("execution(* tn.esprit.tpfoyer.services.*.modify*(..))")
+   /* @Around("execution(* tn.esprit.tpfoyer.services.*.modify*(..))")
     public Object profile(ProceedingJoinPoint pjp) throws Throwable {
         long start = System.currentTimeMillis();
         Object obj = pjp.proceed();
         long elapsedTime = System.currentTimeMillis() - start;
         log.info("Method execution time: " + elapsedTime + " milliseconds.");
         return obj;
-    }
+    }*/
 
 
 }
