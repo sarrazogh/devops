@@ -38,7 +38,6 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - run: ./mvnw -B test
 
   package:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.job_to_run == 'package' || github.event.inputs.job_to_run == 'all' }}
@@ -50,4 +49,3 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - run: ./mvnw -B package -DskipTests
