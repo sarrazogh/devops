@@ -1,0 +1,54 @@
+name: Spring Boot CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      job_to_run:
+        description: "Choisir le job à exécuter"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - build
+          - test
+          - package
+
+jobs:
+  build:
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.job_to_run == 'build' || github.event.inputs.job_to_run == 'all' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: ./mvnw -B compile
+
+  test:
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.job_to_run == 'test' || github.event.inputs.job_to_run == 'all' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: ./mvnw -B test
+
+  package:
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.job_to_run == 'package' || github.event.inputs.job_to_run == 'all' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: ./mvnw -B package -DskipTests
