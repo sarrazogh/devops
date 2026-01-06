@@ -27,7 +27,6 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - run: ./mvnw -B compile
 
   test:
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.job_to_run == 'test' || github.event.inputs.job_to_run == 'all' }}
